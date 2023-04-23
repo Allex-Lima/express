@@ -1,6 +1,8 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
+const fortune = require('./views/lib/fortune')
+
 require('dotenv').config()
 
 const app = express()
@@ -16,7 +18,7 @@ const port = process.env.PORT | 3000
 app.get('/', (req, res) => res.render('home'))
 
 app.get('/about', (req, res) => {
-	res.render('about')
+	res.render('about', {fortune: fortune.getFortune()})
 })
 app.use((req, res) => {
 	res.status(404)
@@ -32,5 +34,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
 	console.log(`Express started on http//localhost:${port}, press Ctrl-c to terminate`)
-    
+
 })
